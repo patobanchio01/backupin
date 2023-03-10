@@ -1,0 +1,75 @@
+.box-atajo {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: 1fr;
+    z-index: 200;
+}
+
+.modal-recetas {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+    z-index: 200;
+    border-radius: 4px;
+    position: fixed;
+    width: 50%;
+    height: 75vh;
+    top: 15%;
+    left: 25%;
+    background: #fefefe;
+    overflow-x: scroll;
+}
+
+.collapsable-content-panel {
+    width: 98%;
+    left: 1%;
+    top: 15px;
+}
+
+.close-icon {
+    cursor: pointer;
+    background-color: var(--background-color-light);
+    color: #333;
+    border-radius: 50%;
+}
+
+.close-icon:hover {
+    background-color: var(--background-color-dark);
+    color: #fafafa;
+    transition: background-color 0.25seg;
+    transition: color 0.25s;
+}
+
+.toolbar {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.title {
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.close {
+    text-align: right;
+    position: absolute;
+    right: 15px;
+}
+
+.modal-body {
+    width: 90%;
+    //background-color: red;
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 90%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.subtitle {
+    font-weight: 600;
+}

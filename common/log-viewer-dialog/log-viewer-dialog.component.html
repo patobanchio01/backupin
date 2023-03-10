@@ -1,0 +1,23 @@
+<div class="header">
+    <span>
+        <mat-icon *ngIf="!data.type || data.type == 'alert'" mat-icon-rounded style="margin-right:5px; font-size:30px; color: orange">
+            report_problem
+        </mat-icon>
+        <mat-icon *ngIf="data.type === 'error'" mat-icon-rounded style="margin-right:5px; font-size:30px; color: #e53935">
+            error
+        </mat-icon>
+        <mat-icon *ngIf="data.type === 'info'" mat-icon-rounded style="margin-right:5px; font-size:30px; color: #1591f6e8">
+            info
+        </mat-icon>
+    </span>
+    <span>
+        <h2 mat-dialog-title style="margin-left: 10px;">{{ data.title }}</h2>
+    </span>
+</div>
+<div mat-dialog-content>
+    <!--p class="dialog-message">{{ data.message }}</p-->
+    <textarea class="dialog-message" disabled>{{ data.message }}</textarea>
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="dialog-button" style="color:#e53935" (click)="cancel()">{{ data.cancelText }} (Ctrl+F9)</button>
+</div>

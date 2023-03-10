@@ -1,0 +1,12 @@
+<!--a mat-list-item routerLink="{{app.link}}" *ngFor="let app of myApps" matTooltip="{{app.description}}">
+  <fa-icon class="menu-icon-big" [icon]="app.icon"></fa-icon>{{app.title}}
+</a>
+<button mat-button (click)="goView('/seguridad')">Ir a seguridad</button-->
+
+<div class="menu-item" (click)="openDialog(app.link)" *ngFor="let app of myApps" matTooltip="{{app.description}}">
+  <fa-icon class="menu-icon-big" [icon]="app.icon"></fa-icon>
+  {{app.title}}
+</div>
+
+
+<mat-divider style="margin-top:4px; margin-bottom: 16px;"></mat-divider>

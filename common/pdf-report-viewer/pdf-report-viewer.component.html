@@ -1,0 +1,31 @@
+<div class="reportViewer mat-elevation-z8">
+    <div class="dialog-header">
+        <span class="dialog-title">
+            <strong>{{dialogTitle}}</strong>
+        </span>
+        <span style="width: 20%; text-align: right; position:relative; float: right;">
+            <mat-icon style="cursor:pointer" (click)="closeModal()">cancel</mat-icon>
+        </span>
+    </div>
+
+    <div class="mini-loading-container" *ngIf="loading">
+        <mat-icon class="mini-loading-rotating">autorenew</mat-icon>
+        <h2>Aguarde unos instantes...</h2>
+    </div>
+
+    <div class="notification-box" *ngIf="ReportURL==null">
+        <h4>{{messageTitle}}</h4>
+        <p>{{messageText}}</p>
+        <button (click)="setReportURL('online')" [disabled]="!showOnlineBT" *ngIf="responseCode!='100' && responseCode!='2'" mat-button>Generar
+            reporte</button>
+        <button (click)="setReportURL('cache')" [disabled]="!showCacheBT" *ngIf="responseCode!='100' && responseCode!='2'" mat-button>Ver reporte en
+            caché</button>
+    </div>
+
+
+    <iframe id="reportContainer" class="report-container" src="" [style.display]="ReportURL!=null?'block':'none'"></iframe>
+
+    <div class="footer-buttons">
+        <button mat-button class="close-button" (click)="closeModal()">Cerrar (Ctrl+F9)</button>
+    </div>
+</div>

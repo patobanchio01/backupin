@@ -1,0 +1,85 @@
+.reportViewer {
+  position: fixed;
+  top: 1vh;
+  left: 1%;
+  z-index: 100;
+  width: 96vw;
+  background-color: white;
+  min-height: 92vh;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.report-container {
+  width: 100%;
+  height: 80vh;
+  border: none;
+}
+
+.dialog-header {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.dialog-title {
+  width: 80%;
+  text-align: left;
+  position: relative;
+  float: left;
+}
+
+.footer-buttons {
+  width: 100%;
+  display: inline-flex;
+  position: absolute;
+  bottom: 20px;
+  left: 0
+}
+
+.close-button {
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--color-confirmar);
+}
+
+.mini-loading-container {
+  width: 100%;
+  top: 50px;
+  text-align: center;
+  position: relative;
+  float: left;
+  z-index: 50;
+}
+
+.notification-box {
+  position: absolute;
+  border-radius: 5px;
+  background-color: #008e8b33;
+  color: #333;
+  top: 100px;
+  padding: 20px;
+  width: 80%;
+  left: 10%;
+}
+
+.hidden {
+  display: none;
+}
+
+.mini-loading-rotating {
+  animation: rotation 2s infinite linear;
+  width: 64px;
+  height: 64px;
+  font-size: 64px;
+  color: var(--color-confirmar);
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}

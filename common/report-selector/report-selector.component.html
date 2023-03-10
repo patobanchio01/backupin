@@ -1,0 +1,72 @@
+<div class="selector-reporte-dialog mat-elevation-z8">
+    <div class="header header-reporte">
+        <div class="title-report">
+            <span>
+                <mat-icon mat-icon-rounded style="margin-right:5px; font-size:30px; color: orange">
+                    report_problem
+                </mat-icon>
+            </span>
+            <span>
+                <h2 mat-dialog-title style="margin-left: 10px;">Seleccione el reporte a ejecutar</h2>
+            </span>
+            <mat-chip-list [disabled]="true">
+                <mat-chip *ngIf="anoPrs && nroPrs" class="mini-chip">Presentacion Año: {{anoPrs}} - Nro: {{nroPrs}}</mat-chip>
+                <mat-chip *ngIf="codEnt && nomEnt" class="mini-chip">Entidad: {{codEnt}} - {{nomEnt}}</mat-chip>
+                <mat-chip *ngIf="codFar" class="mini-chip">CodFar: {{codFar}}</mat-chip>
+            </mat-chip-list>
+        </div>
+
+        <span class="close">
+            <mat-icon (click)="close()" class="close-icon">close</mat-icon>
+        </span>
+    </div>
+
+    <div class="body-reporte">
+        <div mat-dialog-content *ngIf="!loading">
+            <span>
+                <div class="divFiltro">
+                    <mat-form-field appearance="standard" style="width: 80%;">
+                        <mat-label><span style="font-weight: 600;">Reporte </span></mat-label>
+                        <mat-select id="jobName" [(ngModel)]="jobName" (ngModelChange)="preSaveValidate();selectedReport(jobName);">
+                            <mat-option *ngFor=" let param of listaReportes" [value]="param.codigo">
+                                {{param.descripcion}} ({{param.codigo}})</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </span>
+        </div>
+
+        <div class="contenedorCamposReportes" *ngIf="showCampos">
+            <span class="boxCamposReportes" style="width: 230px;margin-right: 40px;padding: 0px;" *ngFor="let campoReporte of listaparamsName">
+                <span style="width: 100%;" *ngIf="estaActivo(campoReporte.flgActivo) && (campoReporte.fieldType  == 'X' ||  campoReporte.fieldType  == 'I') ">
+                    <mat-form-field appearance="standard" style="width: 100%;">
+                        <mat-label> {{campoReporte.displayName}}</mat-label>
+                        <input matInput type="{{returnTypeInput(campoReporte.dataType)}}" name="{{campoReporte.paramName}}" id="{{'report-' + campoReporte.paramName}}"
+                            [(ngModel)]="this.listaDataCamposReportes[campoReporte.paramName] " (focus)="$event.target.select();" (keydown.enter)="setFocusNext($event.target.id);"
+                            (keydown.tab)="setFocusNext($event.target.id);" [required]="esObligatorio(campoReporte.flgOpcional)">
+                    </mat-form-field>
+                </span>
+                <span style="width: 100%;" *ngIf="estaActivo(campoReporte.flgActivo) && campoReporte.fieldType  == 'S' ">
+                    <mat-form-field appearance="standard" style="width: 100%;">
+                        <mat-label>{{campoReporte.displayName}}</mat-label>
+                        <mat-select [(ngModel)]="this.listaDataCamposReportes[campoReporte.paramName]"  id="{{'report-'+campoReporte.paramName}}" (closed)="setFocusNext('report-'+campoReporte.paramName)"
+                            [required]="esObligatorio(campoReporte.flgOpcional)" >
+                            <mat-option *ngFor="let value of campoReporte.paramValues" [value]="value.fieldId">{{value.fieldValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </span>
+            </span>
+        </div>
+
+        <div class="mini-loading-container" *ngIf="loading==true">
+            <mat-icon class="mini-loading-rotating">autorenew</mat-icon>
+            <h2>Aguarde unos instantes...</h2>
+        </div>
+
+        <div mat-dialog-actions class="mat-dialog-buttons" *ngIf="!loading">
+            <button mat-button class="dialog-button" style="color:#e53935" (click)="close()">Cerrar (Ctrl+F9)</button>
+            <button mat-button class="dialog-button" style="color:#008e8b" id="buttonConfirmar" (click)="ejecutarReporte()" [disabled]="!seleccionoReporte || loading">Confirmar (F9)</button>
+        </div>
+    </div>
+</div>

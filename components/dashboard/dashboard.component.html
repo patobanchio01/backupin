@@ -1,0 +1,45 @@
+<div style="text-align: end; padding-right: 20px;">
+  <a mat-button (click)="changeView()">
+    <span *ngIf="!showCompactView">
+      <fa-icon class="dashboard-icon" [icon]="faExpandArrowsAlt"></fa-icon>Vista Normal
+    </span>
+    <span *ngIf="showCompactView">
+      <fa-icon class="dashboard-icon" [icon]="faCompressArrowsAlt"></fa-icon>Vista Compacta
+    </span>
+  </a>
+</div>
+<mat-divider></mat-divider>
+
+<!--VISTA NORMAL-->
+<div class="grid-container">
+  <mat-grid-list cols="5" rowHeight="190px" *ngIf="showCompactView">
+    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let app of myApps">
+      <mat-card class="dashboard-card" routerLink="{{app.link}}">
+        <mat-card-header>
+          <mat-card-title class="card-title-left">
+            <fa-icon class="dashboard-icon" [icon]="app.icon"></fa-icon>{{app.title}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <p>{{app.description}}</p>
+          <div style="text-align: right; margin-top: 5px;">
+            <a mat-button routerLink="{{app.link}}">Acceder
+              <fa-icon class="access-button-icon" [icon]="faArrowAltCircleRight"></fa-icon>
+            </a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<!--VISTA COMPACTA-->
+<div class="compactViewContainer" *ngIf="!showCompactView">
+  <div *ngFor="let app of myApps" class="app-card-compact">
+    <a mat-button routerLink="{{app.link}}">
+      <h3>
+        <fa-icon class="dashboard-icon-big" [icon]="app.icon"></fa-icon>{{app.title}}
+      </h3>
+    </a>
+  </div>
+</div>

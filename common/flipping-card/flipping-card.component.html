@@ -1,0 +1,29 @@
+<!--div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <mat-icon>{{cardData.indicator}}</mat-icon>
+        {{cardData.title}}
+        {{cardData.value}}
+      </div>
+      <div class="flip-card-back">
+        <div style="margin:0; padding:0;font-size:10px; line-height: 10px;" *ngFor="let item of cardData.detail">
+          {{item.param}} = {{item.value}}
+        </div>
+      </div>
+    </div>
+</div-->
+
+<div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+      <div class="card-param-name">{{cardData.title}}</div>
+      <mat-icon class="card-indicator-icon" class="{{cardData.indicator}}">{{cardData.indicator}}</mat-icon>
+      <mat-card-title class="card-indicator-title">{{cardData.value}}</mat-card-title>
+    </div>
+    <div class="flip-card-back">
+      <div style="padding:0; padding-left:2px; font-size:10px; line-height:20px;" *ngFor="let item of cardData.detail">
+        {{item.param}}: {{item.value}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+.app-card {
+  border-radius: 8px;
+  display: inline-grid;
+  height: 100px;
+  padding-top: 0;
+  transition: border 280ms cubic-bezier(.4, 0, .2, 1), box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
+  width: 200px;
+  margin-left: 8px;
+  background-color: var(--color-confirmar);
+  color: white;
+}
+
+.app-card-compact {
+  margin: 4px 0 0 4px;
+  padding: 10px 0 0 0;
+  background-color: #ececec;
+  display: inline-flex;
+  border-radius: 4px;
+  min-width: 230px;
+}
+
+.compactViewContainer {
+  margin-left: 20px;
+}
+
+.grid-container {
+  margin: 0px 0px 20px 0px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  height: fit-content;
+  padding: 0px 0px 16px 0px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: left;
+  padding-left: 16px;
+}
+
+.card-title-left {
+  text-align: left;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.card-title-center {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width: 100%;
+  background-color: var(--color-confirmar);
+  padding-top: 10px;
+  color: white;
+  border-radius: 4px 4px 0 0;
+}
+
+.dashboard-icon {
+  margin-right: 5px;
+  color: var(--color-confirmar);
+  display: inline-block;
+  font-size: 18px;
+}
+
+.dashboard-icon-big {
+  margin-right: 5px;
+  color: var(--color-confirmar);
+  display: inline-block;
+  font-size: 24px;
+}
+
+.mat-card-content>p {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.access-button-icon {
+  margin-right: 5px;
+  color: var(--color-confirmar);
+}
+
+.mat-card-header .mat-card-title {
+  font-size: 16px;
+  margin-top: 16px !important;
+}

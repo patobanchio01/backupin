@@ -1,0 +1,189 @@
+.mini-loading-container {
+    width: 100%;
+    top: 50px;
+    text-align: center;
+    position: relative;
+    float: left;
+}
+
+.mini-loading-rotating {
+    animation: rotation 2s infinite linear;
+    width: 64px;
+    height: 64px;
+    font-size: 64px;
+    color: var(--color-confirmar);
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+.mat-dialog-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cerrar-btn {
+    width: 20%;
+    text-align: right;
+    position: relative;
+    float: right;
+
+    mat-icon {
+        cursor: pointer;
+    }
+}
+
+.cancelar-btn {
+    color: var(--color-cancelar);
+}
+
+.confirmar-btn {
+    color: var(--color-confirmar);
+}
+
+table {
+    border-spacing: 0;
+    min-width: 100% !important;
+    margin-bottom: 15px;
+
+    th {
+        text-align: center;
+        padding: 5px 8px 5px 8px;
+        position: sticky;
+        background: white;
+        z-index: 10;
+    }
+
+    tr:hover {
+        background-color: #0264c61f;
+    }
+
+    tr.mat-footer-row {
+        font-weight: bold;
+    }
+
+    td.mat-cell {
+        padding: 1px 8px 1px 8px;
+        overflow-wrap: anywhere;
+    }
+}
+
+.div-fecha-act {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.encabezado-box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+
+    div {
+        margin-right: 20px;
+    }
+}
+
+.buscar-box {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.caja-pendiente-title {
+    margin-top: 40px;
+    font-weight: 700;
+}
+
+.footer-buttons {
+    display: inline-flex;
+    position: absolute;
+    bottom: 20px;
+    left: 0
+}
+
+///////////////////////////////////////
+.cerrar-caja0-dialog {
+    position: fixed;
+    top: 5vh;
+    left: 12.5%;
+    z-index: 999;
+    width: 75%;
+    background-color: white;
+    min-height: 85vh;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.table-wrapper {
+    overflow: auto;
+    height: 380px;
+    display: inline-block;
+    width: 100%;
+    margin-top: 50px;
+    border: 1px solid #80808033;
+}
+
+.dialog-header {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.dialog-totals {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    font-weight: 500;
+}
+
+.dialog-title {
+    width: 80%;
+    text-align: left;
+    position: relative;
+    float: left;
+}
+
+::ng-deep .mat-sort-header-container {
+    justify-content: center;
+}
+
+.filtros-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filtros-inputs {
+    width: 100%;
+    display: inline-block;
+}
+
+.filtros-inputs-2 {
+    width: 100%;
+    margin-left: 14px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.filtros-buttons {
+    width: 20%;
+    //display: inline-flex;
+    //position: absolute;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+}
+
+tr {
+    height: 40px !important;
+}

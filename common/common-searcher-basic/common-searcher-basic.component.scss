@@ -1,0 +1,143 @@
+.common-searcher {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+    z-index: 100;
+    border-radius: 4px;
+    position: fixed;
+    width: 50%;
+    height: 85vh;
+    top: 10%;
+    left: 25%;
+    background: #fefefe;
+}
+
+.mat-paginator {
+    display: inline-block;
+    background-color: transparent;
+    position: absolute;
+    right: 0;
+    padding: 0 25px;
+}
+
+.boxDataInput{
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    margin-bottom: 70px;
+}
+th.mat-header-cell.cdk-header-cell.cdk-column-cod.mat-column-cod.ng-star-inserted{
+    font-weight: 800;
+    color: black;
+    font-size: 14px;
+}
+
+.results-container {
+    overflow: hidden;
+    width: 95%;
+    height: 450px;
+}
+
+table {
+    border-spacing: 0;
+}
+
+th {
+    text-align: left;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    background: #fafafa;
+    z-index: 10;
+}
+
+tr:hover {
+    background-color: #0264c61f;
+}
+
+.hidden {
+    display: none;
+    transition: display 0.5s;
+}
+
+.close-icon {
+    cursor: pointer;
+    background-color: var(--background-color-light);
+    color: #333;
+    padding-left: 2px;
+    border-radius: 50%;
+}
+
+.close-icon:hover {
+    background-color: var(--background-color-dark);
+    color: #fafafa;
+    transition: background-color 0.25seg;
+    transition: color 0.25s;
+}
+
+.searcher-toolbar {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.searcher-title {
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.searcher-close {
+    text-align: right;
+    position: absolute;
+    right: 15px;
+}
+
+.searcher-body {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+}
+
+.mini-loading-container {
+    width: 100%;
+    top: 50px;
+    text-align: center;
+    position: relative;
+    float: left;
+}
+
+.mini-loading-rotating {
+    animation: rotation 2s infinite linear;
+    width: 64px;
+    height: 64px;
+    font-size: 64px;
+    color: var(--color-confirmar);
+}
+
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+tr {
+    outline: none;
+}
+
+tr.highlight {
+    background: rgb(209, 232, 245) !important;
+}
+
+tr.mat-row:hover {
+    background-color: white !important;
+}
+
+tr.highlight:hover {
+    background-color: rgb(209, 232, 245) !important;
+}

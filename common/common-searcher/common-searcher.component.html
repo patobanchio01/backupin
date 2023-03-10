@@ -1,0 +1,58 @@
+<div class="common-searcher" [hidden]="!visible" (keydown.esc)="close()">
+    <div class="searcher-toolbar">
+        <span clasS="searcher-title">
+            Buscar {{searchForLabel}}...
+        </span>
+        <span class="searcher-close">
+            <mat-icon (click)="close()" class="close-icon">close</mat-icon>
+        </span>
+    </div>
+    <div class="searcher-body">
+        <mat-form-field style="width: 80%;">
+            <mat-label color="primary">Ingrese el nombre/descripción de {{searchParams.entity}}</mat-label>
+            <input matInput autofocus (keydown.enter)="search()" (focus)="$event.target.select();" tabindex="0" id="strBox" #strBox placeholder="Ej: Federada"
+                [(ngModel)]="searchParams.cadBusqueda">
+        </mat-form-field>
+        <button style="margin-left:15px" *ngIf="searchParams.cadBusqueda" mat-button (click)="search()" matTooltip="Haga click para buscar los resultados">
+            <mat-icon>search</mat-icon>
+        </button>
+
+        <div class="mini-loading-container" *ngIf="loading==true">
+            <mat-icon class="mini-loading-rotating">autorenew</mat-icon>
+            <h2>Aguarde unos instantes...</h2>
+        </div>
+
+        <div id="CommonSearcher_searchResultsContainer" class="results-container" [ngClass]="{hidden:noDataFound}">
+            <mat-form-field style="margin-left:16px;">
+                <mat-label color="primary">Buscar...</mat-label>
+                <input matInput (focus)="focusSearch()" (keydown.enter)="setFocusSearch()" (keyup)="applySearch($event)" placeholder="Ej: Palermo" #input>
+            </mat-form-field>
+
+            <mat-paginator (page)="pageEvent($event)" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
+
+            <div #TABLE>
+                <table mat-table [dataSource]="tableDataSource" id="table" #table style="margin-left:16px; width: 98%; margin-bottom:20px;" matSort>
+                    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef style="padding-left:4px; padding-right: 4px;"> {{column}} </th>
+                        <td mat-cell *matCellDef="let element" style="padding-left:4px; padding-right: 4px; font-size: smaller;">
+                            {{element[column]}}</td>
+                    </ng-container>
+
+                    <!-- Row to show when no results where found. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No se han encontrado resultados para "{{input.value}}"</td>
+                    </tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i= index" [ngClass]="{'highlight': selectedRowIndex == i}" (click)="highlight(row,i)"
+                        tabIndex="999" autofocus (keydown.arrowdown)="arrowDownEvent(row, selectedRowIndex+1,i+1)" (keydown.enter)="close();"
+                        (keydown.arrowup)="arrowUpEvent(row, selectedRowIndex-1)" id="{{row.codigo}}">
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div style="width: 100%; display: inline-flex; position: absolute; bottom: 15px;">
+            <button mat-button color="warn" style="margin-left:auto;margin-right:auto;" mat-button (click)="close()">Cerrar (Ctrl+F9)</button>
+        </div>
+    </div>
+</div>

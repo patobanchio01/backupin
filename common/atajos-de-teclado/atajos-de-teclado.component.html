@@ -1,0 +1,41 @@
+<div class="modal-backdrop">
+    <div class="modal-recetas">
+        <div class="toolbar">
+            <span class="title">
+               Atajos de teclado
+            </span>
+            <span class="close">
+                <mat-icon (click)="cancel()" class="close-icon">close</mat-icon>
+            </span>
+        </div>
+        <div class="modal-body">
+            <div>
+                <div class="box-atajo" style="margin-bottom: 10px;">
+                    <span class="subtitle">Tecla</span>
+                    <span class="subtitle">Función</span>
+                </div>
+                <div  *ngFor="let item of atajosTecladoDefault">
+                    <div class="box-atajo">
+                        <span>{{item.tecla}}</span>
+                        <span>{{item.funcion}}</span>
+                    </div>
+                    <hr> 
+                </div>
+                <div style="margin-top: 40px;">
+                    <div   *ngFor="let item of AtajoTecladoData">
+                        <div  class="box-atajo">
+                            <span>{{item.tecla}}</span>
+                            <span>{{item.funcion}}</span>
+                        </div>
+                        <hr> 
+                    </div>
+                </div>
+               
+            </div>
+          
+            <div style="width: 100%; display:flex; justify-content: center;">
+                <button mat-button (click)="cancel()">Cerrar (Ctrl+F9)</button>
+            </div>
+        </div>
+    </div>
+</div>

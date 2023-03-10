@@ -1,0 +1,156 @@
+<div>
+    <div class="dialog-header">
+        <span class="dialog-title">
+            <strong>Cola de Procesos</strong>
+        </span>
+
+        <span class="cerrar-btn">
+            <mat-icon mat-button mat-dialog-close>cancel</mat-icon>
+        </span>
+    </div>
+
+    <div class="filtros-container">
+        <div style="width: 80%">
+            <div class="filtros-inputs">
+                <mat-form-field appearance="standard" style="width: 320px;margin-left:14px;">
+                    <mat-label>Tipo Proceso</mat-label>
+                    <mat-select [(ngModel)]="codTipPrc" (ngModelChange)="updateTableData()">
+                        <mat-option *ngFor="let param of listaCodTipPrc" [value]="param.codTipPrc">
+                            {{param.desTipPrc}} ({{param.codTipPrc}})</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="standard" style="width: 150px;margin-left:14px;">
+                    <mat-label>Estado</mat-label>
+                    <mat-select [(ngModel)]="codEstPrc" (ngModelChange)="updateTableData()">
+                        <mat-option *ngFor="let param of listaCodEstPrc" [value]="param.id">
+                            {{param.descripcion}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field color="accent" style="margin-left:20px;" appearance="standard">
+                    <mat-label>Fecha Desde</mat-label>
+                    <input matInput (dateChange)="validateDates($event, fecHasta);updateTableData()" [matDatepicker]="picker1" [(ngModel)]="fecDesde">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field color="accent" style="margin-left:8px;" appearance="standard">
+                    <mat-label>Fecha Hasta</mat-label>
+                    <input matInput (dateChange)="validateDates(fecDesde, $event);updateTableData()" [matDatepicker]="picker2" [(ngModel)]="fecHasta">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-hint *ngIf="!fechasValidas" style="color:red;">La Fecha Hasta debe ser mayor a la Fecha Desde</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="filtros-inputs-2">
+                <mat-slide-toggle [(ngModel)]="soloUsrAct" (ngModelChange)="updateTableData()">
+                    <span *ngIf="soloUsrAct==true">Solo Usr Actual</span>
+                    <span *ngIf="soloUsrAct==false">Todos</span>
+                </mat-slide-toggle>
+                <!--mat-slide-toggle [(ngModel)]="autoRefresh">
+                    <span *ngIf="autoRefresh==true">Act. Automatica</span>
+                    <span *ngIf="autoRefresh==false">Act. Automatica Desactivada</span>
+                </mat-slide-toggle-->
+                <span>
+                    <mat-slider style="margin-left:24px;" width="300px;" thumbLabel [displayWith]="formatRealTimeSlider" (change)="setTimerInterval()" [(ngModel)]="refreshInterval"
+                        tickInterval="30" min="0" max="300" step="30">
+                    </mat-slider>
+                    <mat-label *ngIf="refreshInterval > 0">Refrescar cada {{refreshInterval}} segundos</mat-label>
+                    <mat-label *ngIf="!refreshInterval">Refresco Automatico OFF</mat-label>
+                </span>
+            </div>
+        </div>
+
+        <div class="filtros-buttons">
+            <button id="searchButton" mat-button (click)="getTableData()" style="color:#008e8b;">
+                <mat-icon>search</mat-icon> Actualizar (Ctrl+F8)
+            </button>
+            <button id="clearFiltersButton" (click)="clearFilters();" mat-button color="warn">
+                <mat-icon color="warn">close</mat-icon> Limpiar filtros (Shift+F8)
+            </button>
+        </div>
+    </div>
+
+    <div id="tableContainer" class="hidden" style="margin-top: 10px;">
+        <div class="buscar-box">
+            <mat-form-field style="margin-left:16px;">
+                <mat-label color="primary">Buscar...</mat-label>
+                <input matInput (keyup)="applySearch($event)" placeholder="Ej: 5072" #input>
+            </mat-form-field>
+
+            <mat-paginator [pageSizeOptions]="[10, 25, 50]"></mat-paginator>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" id="table" #table matSort class="mat-elevation-z8">
+            <ng-container [matColumnDef]="column.id" *ngFor="let column of xtendendDisplayedColumns">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>{{column.displayName}}</th>
+                <td mat-cell *matCellDef="let element">
+                    <span *ngIf="(column.id==='codEstPrc')">
+                        <mat-icon *ngIf="element.codEstPrc == 1" class="state-icon" style="cursor:default; color:#585858" matTooltip="Pendiente Ejecucion">
+                            schedule
+                        </mat-icon>
+                        <mat-icon *ngIf="element.codEstPrc == 2" class="state-icon" style="cursor:default; color:#d7bf0d" matTooltip="En Proceso">
+                            play_arrow
+                        </mat-icon>
+                        <mat-icon *ngIf="element.codEstPrc == 3" class="state-icon" style="cursor:default; color:#008e8b" matTooltip="Finalizado OK">
+                            done
+                        </mat-icon>
+                        <mat-icon *ngIf="element.codEstPrc == 4" class="state-icon" style="cursor: pointer; color:#e53935"
+                            matTooltip="Finalizado con Error. Haga click para relanzar proceso." (click)="relanzarProcesoFallido(element.nroPrc)">
+                            error
+                        </mat-icon>
+                    </span>
+
+                    <span *ngIf="(column.id==='desMsg')">
+                        <mat-icon *ngIf="element[column.id]" class="state-icon" style="cursor:pointer; color:#000000" matTooltip="Ver Msg Respuesta"
+                            (click)="verMensajeLog(element[column.id]);">
+                            comment
+                        </mat-icon>
+
+                        <mat-icon *ngIf="!element[column.id]" class="state-icon" style="cursor:default; color:#a5a5a5" matTooltip="Sin Msg Respuesta">
+                            comment
+                        </mat-icon>
+                    </span>
+
+                    <span *ngIf="(column.id==='desLog')">
+                        <mat-icon *ngIf="element[column.id]" class="state-icon" style="cursor:pointer; color:#000000" matTooltip="Ver Log Error"
+                            (click)="verMensajeLog(element[column.id]);">
+                            manage_search
+                        </mat-icon>
+
+                        <mat-icon *ngIf="!element[column.id]" class="state-icon" style="cursor:default; color:#a5a5a5" matTooltip="No hay log para visualizar">
+                            manage_search
+                        </mat-icon>
+                    </span>
+
+                    <span *ngIf="(column.id!=='codEstPrc' && column.id!=='desMsg' && column.id!=='desLog')">
+                        {{element[column.id]}}
+                    </span>
+                </td>
+            </ng-container>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="7">No se han encontrado resultados para los filtros ingresados.</td>
+            </tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <div class="div-fecha-act" *ngIf="fechaUltAct">
+            <p>Fecha de última actualización: {{ fechaUltAct | date:'dd/LL/yyyy HH:mm:ss' }}</p>
+        </div>
+    </div>
+
+    <div *ngIf="!loading" mat-dialog-actions class="mat-dialog-buttons">
+        <button mat-button mat-dialog-close class="dialog-button cancelar-btn">Cerrar (Ctrl+F9)</button>
+    </div>
+</div>
+
+<div class="mini-loading-container" *ngIf="loading">
+    <mat-icon class="mini-loading-rotating">autorenew</mat-icon>
+    <h2>Aguarde unos instantes</h2>
+</div>
+
+<div class="mini-loading-container" *ngIf="hasErrors">
+    <h4 class="cancelar-btn">{{hasErrorsMessage}}</h4>
+</div>
